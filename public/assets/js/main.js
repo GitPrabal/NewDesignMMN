@@ -330,9 +330,7 @@ $("#send_basic_details").click(function(e){
   // }else{$("#err-consumer-address").hide();}
 
   var page_name = $("#page_name").val();
-
   var base_url = window.location.origin;
-
 
   $.ajax({
           url: base_url+ "/Notice/saveNoticeData", 
@@ -343,7 +341,31 @@ $("#send_basic_details").click(function(e){
         
         success: function(response)   
         {
-          window.location.href= base_url+"/Notice/"+page_name;
+          if(response=="3"){
+
+               $.confirm({
+                title: 'Already Registered Member',
+                content: 'Kindly Log in to continue',
+                type: 'red',
+                typeAnimated: true,
+                buttons: {
+                tryAgain: {
+                    text: 'Login',
+                    btnClass: 'btn-red',
+                    action: function(){
+                    }
+                },
+                  close: function () {
+                  }
+              }
+            });
+
+
+          $("#logiModal").modal('show');
+          return;
+          }else{
+            window.location.href= base_url+"/Notice/defendantView";
+          }
         }
     });
 
@@ -777,3 +799,283 @@ $("#logOut").click(function(){
 
  
 })
+
+
+
+$("#voilationFinalSubmit").click(function(e){
+
+  e.preventDefault();
+  var base_url = window.location.origin;
+
+    $.ajax({
+          url: base_url+ "/Employee/voilationFinalSubmit", 
+          type: "POST",             
+          data: new FormData(document.getElementById("notice-data")),
+          contentType: false,                  
+          processData:false,
+        
+        success: function(response)   
+        {   
+            
+        if(response == "1"){
+           
+          window.location.href= base_url+"/congoPage";
+        return;
+        }
+        if(response == '2'){
+          $.unblockUI();
+          alert("Something Wents Wrong Please Try After Some Time");
+    }
+
+        }
+    });
+
+})
+
+
+$("#grauityFinalSubmit").click(function(e){
+
+  e.preventDefault();
+
+  var base_url = window.location.origin;
+
+    $.ajax({
+          url: base_url+ "/Employee/grauityFinalSubmit", 
+          type: "POST",             
+          data: new FormData(document.getElementById("notice-data")),
+          contentType: false,                  
+          processData:false,
+        
+        success: function(response)   
+        {   
+            
+        if(response == "1"){
+          window.location.href= base_url+"/congoPage";
+        return;
+        }
+        if(response == '2'){
+          $.unblockUI();
+          alert("Something Wents Wrong Please Try After Some Time");
+    }
+
+        }
+    });
+
+})
+
+
+$("#wrongfulTerminationFinalSubmit").click(function(e){
+
+  e.preventDefault();
+
+  var base_url = window.location.origin;
+
+  $.blockUI({
+     css: {fontFamily:'Roboto', backgroundColor: '#fffff', color: '#74c2e1',border:'none',width:'20%', backgroundColor:'none' },
+         baseZ: 2000
+  });
+
+
+    $.ajax({
+          url: base_url+ "/Employee/wrongfulTerminationFinalSubmit", 
+          type: "POST",             
+          data: new FormData(document.getElementById("notice-data")),
+          contentType: false,                  
+          processData:false,
+        
+        success: function(response)   
+        {
+          if(response=="3"){
+            $.unblockUI();
+            $("#logiModal").modal('show');
+            return;
+          }else{
+
+           $.unblockUI();
+         window.location.href= base_url+"/congoPage";
+     }
+
+        }
+    });
+})
+
+
+$("#abusePowerFinalSubmit").click(function(e){
+
+  e.preventDefault();
+
+  var base_url = window.location.origin;
+
+  $.blockUI({
+     css: { backgroundColor: '#fffff', color: '#74c2e1',border:'none',width:'30%', backgroundColor:'none' },
+         baseZ: 2000
+  });
+
+  $.ajax({
+          url: base_url+ "/Employee/abusePowerFinalSubmit", 
+          type: "POST",             
+          data: new FormData(document.getElementById("notice-data")),
+          contentType: false,                  
+          processData:false,
+         
+        
+        success: function(response)   
+        {
+          if(response=="3"){
+            $.unblockUI();
+            $("#logiModal").modal('show');
+            return;
+          }else{
+
+           $.unblockUI();
+         window.location.href= base_url+"/congoPage";
+     }
+
+        }
+    });
+})
+
+
+
+$("#nonPaymentFinalSubmit").click(function(e){
+
+  e.preventDefault();
+  var base_url = window.location.origin;
+
+  $.blockUI({
+     css: { backgroundColor: '#fffff', color: '#74c2e1',border:'none',width:'20%', backgroundColor:'none' },
+         baseZ: 2000
+  });
+
+    $.ajax({
+          url: base_url+ "/Employee/nonPaymentFinalSubmit", 
+          type: "POST",             
+          data: new FormData(document.getElementById("notice-data")),
+          contentType: false,                  
+          processData:false,
+        
+        success: function(response)   
+        {
+          if(response=="3"){
+            $.unblockUI();
+            $("#logiModal").modal('show');
+            return;
+          }else{
+
+           $.unblockUI();
+         window.location.href= base_url+"/congoPage";
+     }
+
+        }
+    });  
+
+})
+
+
+
+$("#MisconductFinalSubmit").click(function(e){
+
+  e.preventDefault();
+
+  var base_url = window.location.origin;
+
+  $.blockUI({
+     css: { backgroundColor: '#fffff', color: '#74c2e1',border:'none',width:'20%', backgroundColor:'none' },
+         baseZ: 2000
+  });
+
+  $.ajax({
+          url: base_url+ "/Employer/MisconductFinalSubmit", 
+          type: "POST",             
+          data: new FormData(document.getElementById("notice-data")),
+          contentType: false,                  
+          processData:false,
+
+        success: function(response)   
+        {
+
+        if(response == "1"){
+            $.unblockUI();
+          window.location.href= base_url+"/congoPage";
+        return;
+        }
+        if(response == '2'){
+          $.unblockUI();
+          alert("Something Wents Wrong Please Try After Some Time");
+    }
+
+        }
+    });
+
+})
+
+
+$("#suspensionFinalSubmit").click(function(e){
+  var base_url = window.location.origin;
+  $.blockUI({
+     css: { backgroundColor: '#fffff', color: '#74c2e1',border:'none',width:'20%', backgroundColor:'none' },
+     baseZ:2000
+  });
+
+    $.ajax({
+          url: base_url+ "/Employer/suspensionFinalSubmit", 
+          type: "POST",             
+          data: new FormData(document.getElementById("notice-data")),
+          contentType: false,                  
+          processData:false,
+
+        success: function(response)   
+        {
+
+        if(response == "1"){
+            $.unblockUI();
+          window.location.href= base_url+"/congoPage";
+        return;
+        }
+        if(response == '2'){
+          $.unblockUI();
+          alert("Something Wents Wrong Please Try After Some Time");
+    }
+
+        }
+    });
+
+})
+
+
+$("#saveDefendantData").click(function(e){
+  var base_url = window.location.origin;
+
+  var model         = $("#model").val();
+  var function_name = $("#function").val();
+  
+  $.blockUI({
+     css: { backgroundColor: '#fffff', color: '#74c2e1',border:'none',width:'20%', backgroundColor:'none' },
+     baseZ:2000
+  });
+
+    $.ajax({
+          url: base_url+"/"+model+"/"+function_name, 
+          type: "POST",             
+          data: new FormData(document.getElementById("notice-data")),
+          contentType: false,                  
+          processData:false,
+
+        success: function(response)   
+        {
+
+        if(response == "1"){
+            $.unblockUI();
+          window.location.href= base_url+"/congoPage";
+        return;
+        }
+        if(response == '2'){
+          $.unblockUI();
+          alert("Something Wents Wrong Please Try After Some Time");
+    }
+
+        }
+    });
+
+})
+

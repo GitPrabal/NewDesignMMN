@@ -16,13 +16,23 @@ public function checkRegisteredUser($consumer_phone,$consumer_email){
   $this->load->library('session');
 
   $this->db->select('email');
-  $this->db->select('phone');
   $this->db->from('register');
   $this->db->where('email',$consumer_email);
-  $this->db->where('phone',$consumer_phone);
   $query   = $this->db->get();
   $row = $query->row();
   $result  = $query->num_rows();
+
+  if($result == 0 ){
+
+    $this->db->select('phone');
+    $this->db->from('register');
+    $this->db->where('phone',$consumer_phone);
+    $query   = $this->db->get();
+    $row = $query->row();
+    $result  = $query->num_rows();
+    return $result;
+
+  }else{ return $result; }
 
   return $result;
 

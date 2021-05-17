@@ -108,68 +108,176 @@ class Home extends CI_Controller {
 
     public function bank_conflicts(){
 
-    	$this->load->view('header');
-		$this->load->view('Bank_Conflicts/home');
-		$this->load->view('loginModal');
-		$this->load->view('footer');
+		$this->load->library('session');
+		$this->load->helper('url');
+		$basic_details_filled = $this->session->userdata('basic_details_filled');
+		$user_login = $this->session->userdata('user_login');
+
+		if( $user_login ){
+
+			$this->load->view('login_header');
+			$this->load->view('Bank_Conflicts/home');
+			$this->load->view('loginModal');
+			$this->load->view('footer');
+
+		}else{
+
+			$this->load->view('header');
+			$this->load->view('Bank_Conflicts/home');
+			$this->load->view('loginModal');
+			$this->load->view('footer');
+		}
     }
 
     public function revenue_disputes(){
 
-    	$this->load->view('header');
-		$this->load->view('Revenue_Disputes/home');
-		$this->load->view('loginModal');
-		$this->load->view('footer');
+		$this->load->library('session');
+		$this->load->helper('url');
+		$basic_details_filled = $this->session->userdata('basic_details_filled');
+		$user_login = $this->session->userdata('user_login');
+
+		if( $user_login ){
+
+			$this->load->view('login_header');
+			$this->load->view('Revenue_Disputes/home');
+			$this->load->view('loginModal');
+			$this->load->view('footer');
+
+		}else{
+			
+			$this->load->view('header');
+			$this->load->view('Revenue_Disputes/home');
+			$this->load->view('loginModal');
+			$this->load->view('footer');
+		}
     }
 
     public function rental_property(){
 
-    	$this->load->view('header');
-		$this->load->view('Rental_Property/home');
-		$this->load->view('loginModal');
-		$this->load->view('footer');
+		$this->load->library('session');
+		$this->load->helper('url');
+		$basic_details_filled = $this->session->userdata('basic_details_filled');
+		$user_login = $this->session->userdata('user_login');
+
+		if( $user_login ){
+
+			$this->load->view('login_header');
+			$this->load->view('Rental_Property/home');
+			$this->load->view('loginModal');
+			$this->load->view('footer');
+
+		}else{
+			
+			$this->load->view('header');
+			$this->load->view('Rental_Property/home');
+			$this->load->view('loginModal');
+			$this->load->view('footer');
+		}
+
     }
 
     public function family_disputes(){
 
-    	$this->load->view('header');
-		$this->load->view('Family_Disputes/home');
-		$this->load->view('loginModal');
-		$this->load->view('footer');
+		$this->load->library('session');
+		$this->load->helper('url');
+		$basic_details_filled = $this->session->userdata('basic_details_filled');
+		$user_login = $this->session->userdata('user_login');
+
+		if( $user_login ){
+
+			$this->load->view('login_header');
+			$this->load->view('Family_Disputes/home');
+			$this->load->view('loginModal');
+			$this->load->view('footer');
+
+		}else{
+			
+			$this->load->view('header');
+			$this->load->view('Family_Disputes/home');
+			$this->load->view('loginModal');
+			$this->load->view('footer');
+		}
+
+
     }
 
     public function consumer_case(){
 
-    	$this->load->view('header');
-		$this->load->view('Consumer_Case/home');
-		$this->load->view('loginModal');
-		$this->load->view('footer');
+		$this->load->library('session');
+		$this->load->helper('url');
+		$basic_details_filled = $this->session->userdata('basic_details_filled');
+		$user_login = $this->session->userdata('user_login');
+
+		if( $user_login ){
+
+			$this->load->view('login_header');
+			$this->load->view('Consumer_Case/home');
+			$this->load->view('loginModal');
+			$this->load->view('footer');
+
+		}else{
+			
+			$this->load->view('header');
+			$this->load->view('Consumer_Case/home');
+			$this->load->view('loginModal');
+			$this->load->view('footer');
+		}
 
     }
 
     public function insurance_disputes(){
 
-    	$this->load->view('header');
-		$this->load->view('Insurance_Disputes/hopublic function contact(){
+    	$this->load->library('session');
+		$this->load->helper('url');
+		$basic_details_filled = $this->session->userdata('basic_details_filled');
+		$user_login = $this->session->userdata('user_login');
 
-		me');
-		$this->load->view('loginModal');
-		$this->load->view('footer');
+		if( $user_login ){
+
+			$this->load->view('login_header');
+			$this->load->view('Insurance_Disputes/home');
+			$this->load->view('loginModal');
+			$this->load->view('footer');
+
+		}else{
+			
+			$this->load->view('header');
+			$this->load->view('Insurance_Disputes/home');
+			$this->load->view('loginModal');
+			$this->load->view('footer');
+		}
 
     }
 
     public function consumer_disputes(){
 
-    	$this->load->view('header');
-		$this->load->view('Consumer_Disputes/home');
-		$this->load->view('loginModal');
-		$this->load->view('footer');
+		$this->load->library('session');
+		$this->load->helper('url');
+		$basic_details_filled = $this->session->userdata('basic_details_filled');
+		$user_login = $this->session->userdata('user_login');
+
+		if( $user_login ){
+
+			$this->load->view('login_header');
+			$this->load->view('Consumer_Disputes/home');
+			$this->load->view('loginModal');
+			$this->load->view('footer');
+
+		}else{
+			
+			$this->load->view('header');
+			$this->load->view('Consumer_Disputes/home');
+			$this->load->view('loginModal');
+			$this->load->view('footer');
+		}
+		
     }
 
     public function congoPage(){
 
         $this->load->helper('url');
         $this->load->library('session');
+        $this->load->model('user_model');
         $this->session->unset_userdata('consumer_last_insert_id');
         $this->session->unset_userdata('basic_details');
         $this->session->unset_userdata('basic_details_filled');

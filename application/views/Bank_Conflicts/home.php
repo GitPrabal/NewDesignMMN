@@ -17,7 +17,7 @@
             </div>
           </div>
           <div class="col-lg-3 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
-            <div class="icon-box iconbox-orange width100 cursonPointer basic_details" data-table-name="esi_claim">
+            <div class="icon-box iconbox-orange width100 cursonPointer basic_details" data-table-name="sarfaesi_notice">
               <div class="icon">
                 <img src="../public/assets/icons/Esi.png" style="width: 32px;height: 31px;">
               </div>

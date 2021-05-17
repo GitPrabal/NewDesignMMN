@@ -239,24 +239,8 @@
   <!-- Vendor JS Files -->
 
   <script type="text/javascript">
-  
     $( function() {
-
-      $("#alreadyLogin").click(function(){
-        $("#getStarted").modal('hide');
-        $("#logiModal").modal('show');
-      });
-
-    $("#newSignUp").click(function(){
-
-      $(".suspension-notice").click(function(){
-
-      })
-      $("#getStarted").modal('show');
-      $("#logiModal").modal('hide');
-    });
-
-
+     $( ".datepicker" ).datepicker({ dateFormat: 'dd-mm-yy' });
   });
   </script>
 

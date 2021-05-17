@@ -18,17 +18,124 @@ class Notice  extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
+
+	public function defendantView(){
+
+		$this->load->library('session');
+		$this->load->helper('url');
+
+		$basic_details_filled = $this->session->userdata('basic_details_filled');
+		$user_login = $this->session->userdata('user_login');
+		$page_name = $this->session->userdata('page_name');
+
+		if( $user_login ){
+
+			if( $basic_details_filled ){
+				$this->load->view('login_header');
+	        	$this->load->view('datepicker');
+				$this->load->view('Employee/'.$page_name);
+				$this->load->view('footer');
+			}else{
+				$this->load->view('login_header');
+	        	$this->load->view('datepicker');
+				$this->load->view('basic_details');
+				$this->load->view('footer');
+			}
+
+	    }else{
+
+		    if( isset($basic_details_filled) || ($basic_details_filled=='1') ){
+		    	$this->load->view('header');
+	        	$this->load->view('datepicker');
+				$this->load->view('Employee/'.$page_name);
+				$this->load->view('footer');
+                return;
+            }else{
+                $this->load->view('header');
+	        	$this->load->view('datepicker');
+				$this->load->view('Employee/home');
+				$this->load->view('footer');
+            }
+
+	    }
+
+	}
+
 	public function saveNoticeData()
 	{   
 		$this->load->helper('url');
 		$this->load->helper('upload');
         $this->load->library('session');
+        $this->load->model('user_model');
+        $user_login = $this->session->userdata('user_login');
+
+        $phone = $_POST['phone'];
+        $email = $_POST['email'];
+
+        if( !isset($user_login) && empty($user_login)){
+	        $result = $this->user_model->checkRegisteredUser($phone,$email);
+	        if($result > 0 ){
+	            echo  "3";
+	            return;
+	        }
+        }
+
         $_SESSION['basic_details'] = $_POST;
         $this->session->set_userdata('basic_details_filled',"1");
         $adhar_front_name =  uploadFiles($_FILES['adhar_front']);
         $adhar_back_name =  uploadFiles($_FILES['adhar_back']);
         $this->session->set_userdata('adhar_front_name',$adhar_front_name);
         $this->session->set_userdata('adhar_back_name',$adhar_back_name);
+
+	}
+
+
+		public function abuse_power(){
+
+		$this->load->library('session');
+		$this->load->helper('url');
+
+		$basic_details_filled = $this->session->userdata('basic_details_filled');
+		$user_login = $this->session->userdata('user_login');
+
+		if( $user_login ){
+
+			if( $basic_details_filled ){
+
+				$this->load->view('login_header');
+	        	$this->load->view('datepicker');
+				$this->load->view('Employee/abuse_power');
+				$this->load->view('footer');
+
+			}else{
+
+				$this->load->view('login_header');
+	        	$this->load->view('datepicker');
+				$this->load->view('basic_details');
+				$this->load->view('footer');
+
+			}
+
+	    }else{
+
+		    if( isset($basic_details_filled) || ($basic_details_filled=='1') ){
+
+		    	$this->load->view('header');
+	        	$this->load->view('datepicker');
+				$this->load->view('Employee/abuse_power');
+				$this->load->view('footer');
+                return;
+
+            }else{
+
+                $this->load->view('header');
+	        	$this->load->view('datepicker');
+				$this->load->view('Employee/home');
+				$this->load->view('footer');
+
+            }
+
+	}
 
 	}
 
@@ -64,7 +171,7 @@ class Notice  extends CI_Controller {
 
 		    	$this->load->view('header');
 	        	$this->load->view('datepicker');
-				$this->load->view('pf_claim');
+				$this->load->view('Employee/pf_claim');
 				$this->load->view('footer');
                 return;
 
@@ -72,14 +179,11 @@ class Notice  extends CI_Controller {
 
                 $this->load->view('header');
 	        	$this->load->view('datepicker');
-				$this->load->view('basic_details');
+				$this->load->view('Employee/home');
 				$this->load->view('footer');
 
             }
-
-	}
-
-
+      }
       
 	}
 
@@ -90,20 +194,50 @@ class Notice  extends CI_Controller {
 		$this->load->view('datepicker');
 
 		$basic_details_filled = $this->session->userdata('basic_details_filled');
+		$user_login = $this->session->userdata('user_login');
 
-		if( $basic_details_filled ){
 
-			$this->load->view('Employee/esi_claim');
-			$this->load->view('loginModal');
-			$this->load->view('footer');
+		if( $user_login ){
 
-		}else{
+			if( $basic_details_filled ){
 
-			$this->load->view('basic_details');
-			$this->load->view('loginModal');
-			$this->load->view('footer');
+				$this->load->view('login_header');
+	        	$this->load->view('datepicker');
+				$this->load->view('Employee/esi_claim');
+				$this->load->view('footer');
 
-		}
+			}else{
+
+				$this->load->view('login_header');
+	        	$this->load->view('datepicker');
+				$this->load->view('Employee/home');
+				$this->load->view('footer');
+
+			}
+
+	    }else{
+
+		    if( isset($basic_details_filled) || ($basic_details_filled=='1') ){
+
+		    	$this->load->view('header');
+	        	$this->load->view('datepicker');
+				$this->load->view('Employee/esi_claim');
+				$this->load->view('footer');
+                return;
+
+            }else{
+
+                $this->load->view('header');
+	        	$this->load->view('datepicker');
+				$this->load->view('Employee/home');
+				$this->load->view('footer');
+
+            }
+
+	}
+
+
+
 	}
 
 	public function salary_dues(){
@@ -113,22 +247,340 @@ class Notice  extends CI_Controller {
 		$this->load->view('datepicker');
 
 		$basic_details_filled = $this->session->userdata('basic_details_filled');
+		$user_login = $this->session->userdata('user_login');
 
-		if( $basic_details_filled ){
+		if( $user_login ){
 
-			$this->load->view('Employee/salary_dues');
-			$this->load->view('loginModal');
-			$this->load->view('footer');
+			if( $basic_details_filled ){
 
-		}else{
+				$this->load->view('login_header');
+	        	$this->load->view('datepicker');
+				$this->load->view('Employee/salary_dues');
+				$this->load->view('footer');
 
-			$this->load->view('basic_details');
-			$this->load->view('loginModal');
-			$this->load->view('footer');
+			}else{
 
-		}
+				$this->load->view('login_header');
+	        	$this->load->view('datepicker');
+				$this->load->view('Employee/home');
+				$this->load->view('footer');
+			}
+
+	    }else{
+
+		    if( isset($basic_details_filled) || ($basic_details_filled=='1') ){
+
+		    	$this->load->view('header');
+	        	$this->load->view('datepicker');
+				$this->load->view('Employee/salary_dues');
+				$this->load->view('footer');
+                return;
+
+            }else{
+
+                $this->load->view('header');
+	        	$this->load->view('datepicker');
+				$this->load->view('Employee/home');
+				$this->load->view('footer');
+            }
+
+	    }
 
 	}
+
+	public function non_payment_salary(){
+
+		$this->load->library('session');
+		$this->load->view('header');
+		$this->load->view('datepicker');
+
+		$basic_details_filled = $this->session->userdata('basic_details_filled');
+		$user_login = $this->session->userdata('user_login');
+
+		if( $user_login ){
+
+			if( $basic_details_filled ){
+
+				$this->load->view('login_header');
+	        	$this->load->view('datepicker');
+				$this->load->view('Employee/non_payment_salary');
+				$this->load->view('footer');
+
+			}else{
+
+				$this->load->view('login_header');
+	        	$this->load->view('datepicker');
+				$this->load->view('Employee/home');
+				$this->load->view('footer');
+			}
+
+	    }else{
+
+		    if( isset($basic_details_filled) || ($basic_details_filled=='1') ){
+
+		    	$this->load->view('header');
+	        	$this->load->view('datepicker');
+				$this->load->view('Employee/non_payment_salary');
+				$this->load->view('footer');
+                return;
+
+            }else{
+
+                $this->load->view('header');
+	        	$this->load->view('datepicker');
+				$this->load->view('Employee/home');
+				$this->load->view('footer');
+            }
+
+	    }
+
+	}
+
+
+	public function voilation_aggrement(){
+
+		$this->load->library('session');
+		$this->load->view('header');
+		$this->load->view('datepicker');
+
+		$basic_details_filled = $this->session->userdata('basic_details_filled');
+		$user_login = $this->session->userdata('user_login');
+
+		if( $user_login ){
+
+			if( $basic_details_filled ){
+
+				$this->load->view('login_header');
+	        	$this->load->view('datepicker');
+				$this->load->view('Employee/voilation_aggrement');
+				$this->load->view('footer');
+
+			}else{
+
+				$this->load->view('login_header');
+	        	$this->load->view('datepicker');
+				$this->load->view('Employee/home');
+				$this->load->view('footer');
+			}
+
+	    }else{
+
+		    if( isset($basic_details_filled) || ($basic_details_filled=='1') ){
+
+		    	$this->load->view('header');
+	        	$this->load->view('datepicker');
+				$this->load->view('Employee/voilation_aggrement');
+				$this->load->view('footer');
+                return;
+
+            }else{
+
+                $this->load->view('header');
+	        	$this->load->view('datepicker');
+				$this->load->view('Employee/home');
+				$this->load->view('footer');
+            }
+
+	    }
+
+	}
+
+	public function gratuity_claim(){
+
+		$this->load->library('session');
+		$this->load->view('header');
+		$this->load->view('datepicker');
+
+		$basic_details_filled = $this->session->userdata('basic_details_filled');
+		$user_login = $this->session->userdata('user_login');
+
+		if( $user_login ){
+
+			if( $basic_details_filled ){
+
+				$this->load->view('login_header');
+	        	$this->load->view('datepicker');
+				$this->load->view('Employee/gratuity_claim');
+				$this->load->view('footer');
+
+			}else{
+
+				$this->load->view('login_header');
+	        	$this->load->view('datepicker');
+				$this->load->view('Employee/home');
+				$this->load->view('footer');
+			}
+
+	    }else{
+
+		    if( isset($basic_details_filled) || ($basic_details_filled=='1') ){
+
+		    	$this->load->view('header');
+	        	$this->load->view('datepicker');
+				$this->load->view('Employee/gratuity_claim');
+				$this->load->view('footer');
+                return;
+
+            }else{
+
+                $this->load->view('header');
+	        	$this->load->view('datepicker');
+				$this->load->view('Employee/home');
+				$this->load->view('footer');
+            }
+
+	    }
+
+	}
+
+	public function wrongful_termination(){
+
+		$this->load->library('session');
+		$this->load->view('header');
+		$this->load->view('datepicker');
+
+		$basic_details_filled = $this->session->userdata('basic_details_filled');
+		$user_login = $this->session->userdata('user_login');
+
+		if( $user_login ){
+
+			if( $basic_details_filled ){
+
+				$this->load->view('login_header');
+	        	$this->load->view('datepicker');
+				$this->load->view('Employee/wrongful_termination');
+				$this->load->view('footer');
+
+			}else{
+
+				$this->load->view('login_header');
+	        	$this->load->view('datepicker');
+				$this->load->view('Employee/home');
+				$this->load->view('footer');
+			}
+
+	    }else{
+
+		    if( isset($basic_details_filled) || ($basic_details_filled=='1') ){
+
+		    	$this->load->view('header');
+	        	$this->load->view('datepicker');
+				$this->load->view('Employee/wrongful_termination');
+				$this->load->view('footer');
+                return;
+
+            }else{
+
+                $this->load->view('header');
+	        	$this->load->view('datepicker');
+				$this->load->view('Employee/home');
+				$this->load->view('footer');
+            }
+
+	    }
+
+
+	}
+
+	public function misconduct_notice(){
+
+		$this->load->library('session');
+		$this->load->view('header');
+		$this->load->view('datepicker');
+
+		$basic_details_filled = $this->session->userdata('basic_details_filled');
+		$user_login = $this->session->userdata('user_login');
+
+		if( $user_login ){
+
+			if( $basic_details_filled ){
+
+				$this->load->view('login_header');
+	        	$this->load->view('datepicker');
+				$this->load->view('Employee/misconduct_notice');
+				$this->load->view('footer');
+
+			}else{
+
+				$this->load->view('login_header');
+	        	$this->load->view('datepicker');
+				$this->load->view('Employee/home');
+				$this->load->view('footer');
+			}
+
+	    }else{
+
+		    if( isset($basic_details_filled) || ($basic_details_filled=='1') ){
+
+		    	$this->load->view('header');
+	        	$this->load->view('datepicker');
+				$this->load->view('Employee/misconduct_notice');
+				$this->load->view('footer');
+                return;
+
+            }else{
+
+                $this->load->view('header');
+	        	$this->load->view('datepicker');
+				$this->load->view('Employee/home');
+				$this->load->view('footer');
+            }
+
+	    }
+
+
+	}
+
+	public function suspension_notice(){
+
+		$this->load->library('session');
+		$this->load->view('header');
+		$this->load->view('datepicker');
+
+		$basic_details_filled = $this->session->userdata('basic_details_filled');
+		$user_login = $this->session->userdata('user_login');
+
+		if( $user_login ){
+
+			if( $basic_details_filled ){
+
+				$this->load->view('login_header');
+	        	$this->load->view('datepicker');
+				$this->load->view('Employee/suspension_notice');
+				$this->load->view('footer');
+
+			}else{
+
+				$this->load->view('login_header');
+	        	$this->load->view('datepicker');
+				$this->load->view('Employee/home');
+				$this->load->view('footer');
+			}
+
+	    }else{
+
+		    if( isset($basic_details_filled) || ($basic_details_filled=='1') ){
+
+		    	$this->load->view('header');
+	        	$this->load->view('datepicker');
+				$this->load->view('Employee/suspension_notice');
+				$this->load->view('footer');
+                return;
+
+            }else{
+
+                $this->load->view('header');
+	        	$this->load->view('datepicker');
+				$this->load->view('Employee/home');
+				$this->load->view('footer');
+            }
+
+	    }
+
+
+	}
+
+
 
 	public function harrashment(){
 
@@ -137,21 +589,44 @@ class Notice  extends CI_Controller {
 		$this->load->view('datepicker');
 
 		$basic_details_filled = $this->session->userdata('basic_details_filled');
+		$user_login = $this->session->userdata('user_login');
 
-		if( $basic_details_filled ){
+		if( $user_login ){
 
-			$this->load->view('Employee/harrashment');
-			$this->load->view('loginModal');
-			$this->load->view('footer');
+			if( $basic_details_filled ){
 
-		}else{
+				$this->load->view('login_header');
+	        	$this->load->view('datepicker');
+				$this->load->view('Employee/harrashment');
+				$this->load->view('footer');
 
-			$this->load->view('basic_details');
-			$this->load->view('loginModal');
-			$this->load->view('footer');
+			}else{
 
-		}
+				$this->load->view('login_header');
+	        	$this->load->view('datepicker');
+				$this->load->view('Employee/home');
+				$this->load->view('footer');
+			}
 
+	    }else{
+
+		    if( isset($basic_details_filled) || ($basic_details_filled=='1') ){
+
+		    	$this->load->view('header');
+	        	$this->load->view('datepicker');
+				$this->load->view('Employee/harrashment');
+				$this->load->view('footer');
+                return;
+
+            }else{
+
+                $this->load->view('header');
+	        	$this->load->view('datepicker');
+				$this->load->view('Employee/home');
+				$this->load->view('footer');
+            }
+
+	    }
 	}
 
 	public function saveFinalData(){
@@ -248,7 +723,7 @@ class Notice  extends CI_Controller {
                     'address_office'            => $data['pf_office_address'],
                     'pf_complaint'             =>  $data['no_pf_complaint'],
                     'communication_attachment'  => $pf_complaint_attachment,
-                    'relief'                    => $$data['relief']
+                    'relief'                    => $data['relief']
 
             );
                  
@@ -262,9 +737,8 @@ class Notice  extends CI_Controller {
         else{
                      echo "2";
         }
-	
+    }
 
-	
-}
+
 
 }

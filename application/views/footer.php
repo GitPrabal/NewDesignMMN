@@ -9,6 +9,11 @@
   <script src="../public/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
   <script src="../public/assets/vendor/aos/aos.js"></script>
   <script src="../public/assets/js/jquery-confirm.min.js"></script>
+  <script src="../public/assets/js/jquery.blockUI.js"></script>
   <!-- Template Main JS File -->
   <script src="../public/assets/js/main.js"></script>
+<!-- Date Picker -->
+<!--   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>-->  
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 

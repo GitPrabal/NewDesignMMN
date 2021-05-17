@@ -55,7 +55,7 @@
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
-          <li class="active"><a href="#">Home</a></li>
+          <li class="active"><a href="../">Home</a></li>
           <li><a href="#">My Notices</a></li>
            <li class="drop-down"><a href="#">Accounts</a>
             <ul>

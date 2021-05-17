@@ -197,23 +197,10 @@
 
   <script type="text/javascript">
   
-    $( function() {
+  $( function() {
 
-      $("#alreadyLogin").click(function(){
-        $("#getStarted").modal('hide');
-        $("#logiModal").modal('show');
-      });
-
-    $("#newSignUp").click(function(){
-
-      $(".suspension-notice").click(function(){
-
-      })
-      $("#getStarted").modal('show');
-      $("#logiModal").modal('hide');
-    });
-
-
+     $( ".datepicker" ).datepicker();
+     
   });
   </script>
 

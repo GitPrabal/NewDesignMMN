@@ -31,6 +31,8 @@
   <link href="../public/assets/css/style.css" rel="stylesheet">
 
   <link rel="stylesheet" href="../public/assets/css/jquery-confirm.min.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
 
   <!-- =======================================================
   * Template Name: OnePage - v2.2.2
@@ -55,7 +57,7 @@
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
-          <li class="active"><a href="#">Home</a></li>
+          <li class="active"><a href="../">Home</a></li>
           <li><a href="#" data-toggle="modal" data-target="#logiModal">Login</a></li>
           <li><a href="#" data-toggle="modal" data-target="#registerModal">Register</a></li>
           <li><a href="#">Corporate</a></li>
